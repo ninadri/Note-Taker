@@ -9,14 +9,14 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static("docs/public"));
 
 app.use(pageRouter);
 app.use("/api/notes", notesRouter);
 
 // GET route for Homepage
 app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "/public/assets/index.html"))
+  res.sendFile(path.join(__dirname, "/docs/public/index.html"))
 );
 
 app.listen(PORT, () => {
