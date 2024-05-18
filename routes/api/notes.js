@@ -6,12 +6,12 @@ const {
   writeToFile,
 } = require("../../helpers/fsUtils");
 
-// Get
+// GET route for retrieving all the notes
 notesRouter.get("/", (req, res) =>
   readFromFile("./db/notes.json").then((data) => res.json(JSON.parse(data)))
 );
 
-// Post
+// POST route for submitting a new note
 notesRouter.post("/", (req, res) => {
   console.log(req.body);
 
@@ -31,7 +31,7 @@ notesRouter.post("/", (req, res) => {
   }
 });
 
-// Delete
+// DELETE for deleting a note by it's id
 notesRouter.delete("/:note_id", (req, res) => {
   const noteId = req.params.note_id;
   readFromFile("./db/notes.json")
