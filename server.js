@@ -1,23 +1,20 @@
 const express = require("express");
 const path = require("path");
-const pageRouter = require("./routes/pages");
-const notesRouter = require("./routes/notes");
+const pageRouter = require("./routes/api/pages");
+const notesRouter = require("./routes/api/notes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
-app.use("/", pageRouter);
-app.use("/api", notesRouter);
-
-app.get("/notes", (req, res) => {
-  res.sendFile(__dirname + "/public/notes.html");
-});
+app.use(pageRouter);
+app.use("/api/notes", notesRouter);
 
 app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "/public/index.html"))
+  res.sendFile(path.join(__dirname, "/public/assets/index.html"))
 );
 
 app.listen(PORT, () => {
